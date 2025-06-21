@@ -1,4 +1,4 @@
-# Modern Portfolio Website
+# Modern Portfolio
 
 A stunning, modern portfolio website built with React, Vite, Tailwind CSS, and Framer Motion.
 
@@ -19,10 +19,3 @@ A stunning, modern portfolio website built with React, Vite, Tailwind CSS, and F
 - Framer Motion
 - Lucide React (Icons)
 - React Router DOM
-
-## 📦 Installation
-
-1. Clone the repository
-```bash
-git clone https://github.com/yourusername/modern-portfolio.git
-cd modern-portfolio
