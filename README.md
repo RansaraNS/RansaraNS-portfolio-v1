@@ -2,6 +2,10 @@
 
 A stunning, modern portfolio website built with React, Vite, Tailwind CSS, and Framer Motion.
 
+## 🔗 Live Demo
+
+➡️ [Visit the deployed site](https://ransarans-portfolio.vercel.app/)
+
 ## 🚀 Features
 
 - **Modern Design**: Glassmorphism effects, gradients, and smooth animations
