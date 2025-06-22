@@ -84,7 +84,7 @@ const ProjectsPage = () => {
                     <span>View Code</span>
                   </motion.a>
                   
-                  <motion.a
+                  {/* <motion.a
                     href={project.live}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -92,7 +92,7 @@ const ProjectsPage = () => {
                   >
                     <ExternalLink size={18} />
                     <span>Live Demo</span>
-                  </motion.a>
+                  </motion.a> */}
                 </div>
               </div>
             </motion.div>
