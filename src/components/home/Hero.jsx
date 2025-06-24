@@ -28,8 +28,6 @@ import {
 import useScrollAnimation from '../../hooks/useScrollAnimation';
 import portfolioData from '../../data/portfolioData';
 
-
-
 // PDF Viewer Component
 const PDFViewer = ({ isOpen, onClose, pdfUrl }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -144,7 +142,7 @@ const PDFViewer = ({ isOpen, onClose, pdfUrl }) => {
   );
 };
 
-const Hero = () => {
+const Hero = ({ setCurrentPage }) => { // Accept setCurrentPage as prop
   const scrollY = useScrollAnimation();
   const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
   
@@ -153,6 +151,11 @@ const Hero = () => {
 
   const handleDownloadCV = () => {
     setIsPDFViewerOpen(true);
+  };
+
+  // Function to handle "Connect with Me" button click
+  const handleConnectWithMe = () => {
+    setCurrentPage('contact'); // Navigate to contact page
   };
   
   return (
@@ -230,7 +233,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open(portfolioData.social.linkedin, '_blank')}
+              onClick={handleConnectWithMe} // Changed to navigate to contact page
               className="px-8 py-4 glass-effect rounded-full font-semibold flex items-center space-x-2 hover:bg-white/20"
             >
               <Mail size={20} />

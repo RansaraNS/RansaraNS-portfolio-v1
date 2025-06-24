@@ -22,7 +22,6 @@ import {
   Target
 } from 'lucide-react';
 
-
 import Hero from './components/home/Hero';
 import About from './components/home/About';
 import Skills from './components/home/Skills';
@@ -34,7 +33,7 @@ import AboutPage from './components/pages/AboutPage';
 import ProjectsPage from './components/pages/ProjectsPage';
 import ContactPage from './components/pages/ContactPage';
 
-import Footer from './components/common/Footer'
+import Footer from './components/common/Footer';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -44,7 +43,7 @@ const App = () => {
       case 'home':
         return (
           <div>
-            <Hero />
+            <Hero setCurrentPage={setCurrentPage} /> {/* Pass setCurrentPage prop */}
             <About />
             <Skills />
             <Projects />
@@ -60,7 +59,7 @@ const App = () => {
       default:
         return (
           <div>
-            <Hero />
+            <Hero setCurrentPage={setCurrentPage} /> {/* Pass setCurrentPage prop */}
             <About />
             <Skills />
             <Projects />
