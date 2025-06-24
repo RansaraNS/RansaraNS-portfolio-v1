@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { 
   Menu, 
   X, 
@@ -19,11 +20,17 @@ import {
   Heart,
   Award,
   Book,
-  Target
+  Target,
+  CheckCircle,
+  AlertCircle,
+  Loader
 } from 'lucide-react';
 
 
 import portfolioData from '../../data/portfolioData';
+import.meta.env;
+
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY); //emailjs public key
 
 
 const Contact = () => {
@@ -32,13 +39,68 @@ const Contact = () => {
     email: '',
     message: ''
   });
+
+  const [submitStatus, setSubmitStatus] = useState({
+    isSubmitting: false,
+    isSuccess: false,
+    isError: false,
+    message: ''
+  });
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    
+    setSubmitStatus({
+      isSubmitting: true,
+      isSuccess: false,
+      isError: false,
+      message: ''
+    });
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: 'Sasin Ransara',
+        to_email: 'sasinransara@gmail.com'
+      };
+
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID, //emailjs service id
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, //emailjs my template id
+        templateParams
+      );
+
+      console.log('Email sent successfully:', response);
+
+      setSubmitStatus({
+        isSubmitting: false,
+        isSuccess: true,
+        isError: false,
+        message: 'Thank you! Your message has been sent successfully. I\'ll get back to you soon.'
+      });
+
+      setFormData({ name: '', email: '', message: ''});
+
+      setTimeout(() => {
+        setSubmitStatus(prev => ({ ...prev, isSuccess: false, message: '' }));
+      }, 5000);
+
+    } catch (error) {
+      console.error('Email sending failed:', error);
+
+      setSubmitStatus({
+        isSubmitting: false,
+        isSuccess: false,
+        isError: true,
+        message: 'Oops! Something went wrong. Please try again later.'
+      });
+
+      setTimeout(() => {
+        setSubmitStatus(prev =>  ({ ...prev, isError: false, message: ''}))
+      }, 5000);
+    }
   };
   
   const handleChange = (e) => {
@@ -116,6 +178,33 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <form onSubmit={handleSubmit} className="glass-effect p-8 rounded-2xl space-y-6">
+
+              <AnimatePresence>
+                {(submitStatus.isSuccess || submitStatus.isError) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`p-4 rounded-lg flex items-center ${
+                      submitStatus.isSuccess 
+                      ? 'bg-green-500/20 border border-green-500/30'
+                      : 'bg-red-500/20 border border-red-500/30'
+                    }`}
+                  >
+                    {submitStatus.isSuccess ? (
+                      <CheckCircle className="text-green-400 mr-3 flex-shrink-0" size={20} />
+                    ) : (
+                      <AlertCircle className="text-red-400 mr-3 flex-shrink-0" size={20} />
+                    )}
+                    <span className={`text-sm ${
+                      submitStatus.isSuccess ? 'text-green-300' : 'text-red-300'
+                    }`}>
+                      {submitStatus.message}
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                   Name
@@ -127,6 +216,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  disabled={submitStatus.isSubmitting}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder="Enter your name"
                 />
@@ -143,6 +233,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  disabled={submitStatus.isSubmitting}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder="Enter your email"
                 />
@@ -158,6 +249,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  disabled={submitStatus.isSubmitting}
                   rows={5}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 resize-none"
                   placeholder="Tell me about your project or inquiry..."
@@ -166,11 +258,19 @@ const Contact = () => {
               
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                disabled={submitStatus.isSubmitting}
+                whileHover={!submitStatus.isSubmitting ? { scale: 1.05 } : {}}
+                whileTap={!submitStatus.isSubmitting ? { scale: 0.95 } : {}}
                 className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold text-white neon-glow transition-all"
               >
-                Send Message
+                {submitStatus.isSubmitting ? (
+                  <>
+                    <Loader className="animate-spin mr-2" size={20} />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
               </motion.button>
             </form>
           </motion.div>
