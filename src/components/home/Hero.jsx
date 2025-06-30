@@ -35,7 +35,7 @@ const PDFViewer = ({ isOpen, onClose, pdfUrl }) => {
 
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = "https://drive.google.com/file/d/150qyTiaGdmnoGq2ZSZahgbz1is3rHQzk/view?usp=drive_link";
+    link.href = "https://drive.google.com/file/d/11hnbXSybA12ei5hsOJTWhCo_60CtqPIi/view?usp=sharing";
     link.download = 'Sasin_Ransara_CV.pdf';
     document.body.appendChild(link);
     link.click();
@@ -147,7 +147,7 @@ const Hero = ({ setCurrentPage }) => { // Accept setCurrentPage as prop
   const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
   
   // Sample PDF URL - replace with your actual PDF URL
-  const pdfUrl = "https://sr-cv.tiiny.site/";
+  const pdfUrl = "https://aqua-jenny-61.tiiny.site";
 
   const handleDownloadCV = () => {
     setIsPDFViewerOpen(true);
@@ -178,8 +178,8 @@ const Hero = ({ setCurrentPage }) => { // Accept setCurrentPage as prop
             <div className="relative w-48 h-48 mx-auto">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 animate-glow"></div>
               <img
-                src="https://z-p3-scontent.fcmb9-1.fna.fbcdn.net/v/t39.30808-6/364802282_2065161483825592_725251577288906574_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeExOQ4kvAqtDz1_flffrjkDLY_pXXCtTYstj-ldcK1Ni8Sd56od_4qiTBxlZo4hKSiGtr2IMo1cPHRnZqrkmqGG&_nc_ohc=JA7WpYbRi7QQ7kNvwGJotgh&_nc_oc=AdmcpeJtNn60oTFhrHk3dV8bzVwd3KsoE8r6kOI57V2EVAMA8tnPFQA_RJgFmBvwk-o&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb9-1.fna&_nc_gid=zNIAqA1JkoEYaMTO_-sOqQ&oh=00_AfP4G3ZmW2LlqjK6O3bWb8LO1rpeh-9VKr8AQwmYbq806w&oe=685CA3D1"
-                alt="Profile"
+                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiDmsgf8QHZsjDMiIzlvmm1gp_p3U-MNtbbVQCJBQwCZxVHlXxTl21qG-KnXQ5SgZtH-JmmJQ76d5NdjX8_zyWsY5NbZZOX1tuATHY-kN34WC70LAZEpip9jOG764VrpA7pxI4xGpS4SWDbGKxzy7c1AIAH4tKGd0_DDsao0IhdLFYraQTKqATzk5F6HI/s320/IMG_20230803_203250_509.jpg"
+                alt="Sasin Ransara Profile"
                 className="relative w-full h-full rounded-full object-cover border-4 border-white/20"
               />
             </div>
